@@ -32,14 +32,14 @@ Resume: Today you will see how and when to create database indexes
 
 ![D05_01](misc/images/D05_01.png)
 
-How does indexing make us faster? Why does the same SQL query with and without index have differences in TPS (Transaction Per Second? Actually, from “user-point-of-view”, index is just a “black box” with magic inside. From “mathematical-point-of-view”, index is just an organized structure and no magic actually. 
+How does indexing speed us up? Why does the same SQL query with and without index have different TPS (Transaction Per Second)? Actually, from “user-point-of-view”, index is just a “black box” with magic inside. From “mathematical-point-of-view”, index is just an organized structure and no magic at all. 
 
-Let me explain the reason why the index exists but is not used. 
+Let me explain the reason why index exists but is not used.
 
 |  |  |
 | ------ | ------ |
-| Please take a look at the picture, the red line means linear time to find data based on a query. Other words, if you need to find something then you have to see in each block , page , tuple and create a list of your searching rows. (this term has a name “sequential scanning”). Actually, if you created a BTree index, then you got an improvement for speed. So, the green line corresponds to logarithmic searching time. Let’s imagine,  if you have 1000000 rows, and to make a search for 1 row , you need, saying ... 1 second then in total you need 1000000 seconds, but with index you need ln(1000000) ~ 14 seconds | ![D05_02](misc/images/D05_02.png) |
-| ![D05_03](misc/images/D05_03.png) | But why… index is not working? There are different reasons to be honest, but the main one is based on the total number of rows of the indexed table. Please take a look at a picture, I drawed a bold blue line and this is a path for searching algorithms. As you can see, linear time at the beginning is most appropriate for algorithms instead of using logarithmic search. How does one detect this intersection point? Basically I can recommend experiments, benchmarks and … your intuition. No formulas at all. Therefore sometimes, if you want to compare  results of your searching, you need to disable sequential scanning explicitly. For example, there is a special command  set enable_seqscan =off in PostgreSQL |
+|Please take a look at the image, the red line means linear time to find data based on a query. In other words, if you need to find something, then you have to look in each block, page, tuple and create a list of your search rows. (This term has a name "sequential scanning"). Actually, if you created a BTree index, then you got an improvement for speed. So the green line corresponds to logarithmic search time. Let's imagine, if you have 1000000 rows, and to do a search for 1 row, you need, say... 1 second, then in total you need 1000000 seconds, but with index you need ln(1000000) ~ 14 seconds. | ![D05_02](misc/images/D05_02.png) |
+| ![D05_03](misc/images/D05_03.png) | But why... does the index not work? There are several reasons to be honest, but the main one is based on the total number of rows of the indexed table. Please take a look at a picture, I have drawn a bold blue line and this is a path for search algorithms. As you can see, linear time at the beginning is most appropriate for algorithms instead of using logarithmic search. How do you find this intersection? Basically, I can recommend experiments, benchmarks, and ... your intuition. No formulas at all. Therefore, if you want to compare the results of your searches, you sometimes have to explicitly disable sequential scanning. For example, there is a special command set enable_seqscan =off in PostgreSQL. |
 
 
 
@@ -47,22 +47,22 @@ Let me explain the reason why the index exists but is not used.
 ## Chapter II
 ## General Rules
 
-- Use this page as the only reference. Do not listen to any rumors and speculations on how to prepare your solution.
-- Please make sure you are using the latest version of PostgreSQL.
-- That is completely OK if you are using IDE to write a source code (aka SQL script).
-- To be assessed your solution must be in your GIT repository.
-- Your solutions will be evaluated by your piscine mates.
-- You should not leave in your directory any other file than those explicitly specified by the exercise instructions. It is recommended that you modify your `.gitignore` to avoid accidents.
-- Do you have a question? Ask your neighbor on the right. Otherwise, try with your neighbor on the left.
+- Use this page as your only reference. Do not listen to rumors and speculations about how to prepare your solution.
+- Make sure you are using the latest version of PostgreSQL.
+- It is perfectly fine if you use the IDE to write source code (aka SQL script).
+- To be evaluated, your solution must be in your GIT repository.
+- Your solutions will be evaluated by your peers.
+- You should not leave any files in your directory other than those explicitly specified by the exercise instructions. It is recommended that you modify your `.gitignore` to avoid accidents.
+- Got a question? Ask your neighbor to the right. Otherwise, try your neighbor on the left.
 - Your reference manual: mates / Internet / Google. 
-- Read the examples carefully. They may require things that are not otherwise specified in the subject.
+- Read the examples carefully. You may need things not specified in the topic.
 - And may the SQL-Force be with you!
-- Absolutely everything can be presented in SQL! Let’s start and have fun!
+Absolutely anything can be represented in SQL! Let's get started and have fun!
 
 ## Chapter III
 ## Rules of the day
 
-- Please make sure you have an own database and access for it on your PostgreSQL cluster. 
+- Please make sure you have your own database and access for it on your PostgreSQL cluster. 
 - Please download a [script](materials/model.sql) with Database Model here and apply the script to your database (you can use command line with psql or just run it through any IDE, for example DataGrip from JetBrains or pgAdmin from PostgreSQL community). **Our knowledge way is incremental and linear therefore please be aware all changes that you made in Day03 during exercises 07-13 should be on place (its similar like in real world , when we applied a release and need to be consistency with data for new changes).**
 - All tasks contain a list of Allowed and Denied sections with listed database options, database types, SQL constructions etc. Please have a look at the section before you start.
 - Please take a look at the Logical View of our Database Model. 
@@ -96,7 +96,7 @@ Let me explain the reason why the index exists but is not used.
 - field menu_id - foreign key to menu
 - field order_date - date (for example 2022-01-01) of person order 
 
-Persons' visit and persons' order are different entities and don't contain any correlation between data. For example, a client can be in one restraunt (just looking at menu) and in this time make an order in different one by phone or by mobile application. Or another case,  just be at home and again make a call with order without any visits.
+People's visit and people's order are different entities and don't contain any correlation between data. For example, a customer can be in a restaurant (just looking at the menu) and in that time place an order in another restaurant by phone or mobile application. Or another case, just be at home and again make a call with order without any visits.
 
 ## Chapter IV
 ## Exercise 00 - Let’s create indexes for every foreign key
@@ -108,7 +108,7 @@ Persons' visit and persons' order are different entities and don't contain any c
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please create a simple BTree index for every foreign key in our database. The name pattern should satisfy the next rule “idx_{table_name}_{column_name}”. For example, the name BTree index for the pizzeria_id column in the `menu` table is `idx_menu_pizzeria_id`.
+Please create a simple BTree index for each foreign key in our database. The name pattern should match the next rule "idx_{table_name}_{column_name}". For example, the name of the BTree index for the pizzeria_id column in the `menu` table is `idx_menu_pizzeria_id`.
 
 
 ## Chapter V
@@ -121,22 +121,22 @@ Please create a simple BTree index for every foreign key in our database. The na
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Before further steps please write a SQL statement that returns pizzas’ and corresponding pizzeria names. Please take a look at the sample result below (no sort needed).
+Before proceeding, please write an SQL statement that returns pizzas and the corresponding pizzeria names. See the example result below (no sorting required).
 
 | pizza_name | pizzeria_name | 
 | ------ | ------ |
 | cheese pizza | Pizza Hut |
 | ... | ... |
 
-Let’s provide proof that your indexes are working for your SQL.
-The sample of proof is the output of the `EXPLAIN ANALYZE` command. 
-Please take a look at the sample output command.
+Let's prove that your indexes work for your SQL.
+The sample proof is the output of the `EXPLAIN ANALYZE` command. 
+Please take a look at the sample output of the command.
     
     ...
     ->  Index Scan using idx_menu_pizzeria_id on menu m  (...)
     ...
 
-**Hint**: please think why your indexes are not working in a direct way and what should we do to enable it?
+**Hint**: Please think about why your indexes do not work in a direct way and what should we do to enable it?
 
 
 
@@ -150,9 +150,9 @@ Please take a look at the sample output command.
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please create a functional B-Tree index with name `idx_person_name` for the column name of the `person` table. Index should contain person names in upper case. 
+Please create a functional B-Tree index  named `idx_person_name` on the column name of the `person` table. The index should contain person names in upper case. 
 
-Please write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index idx_person_name is working. 
+Write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index idx_person_name works.
 
 ## Chapter VII
 ## Exercise 03 - Multicolumn index for our goals
@@ -165,18 +165,18 @@ Please write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index idx_p
 | Language                        | ANSI SQL                                                                                              |
 
 
-Please create a better multicolumn B-Tree index with the name `idx_person_order_multi` for the SQL statement below.
+Please create a better multi-column B-Tree index named `idx_person_order_multi` for the SQL statement below.
 
     SELECT person_id, menu_id,order_date
     FROM person_order
     WHERE person_id = 8 AND menu_id = 19;
 
 
-The `EXPLAIN ANALYZE` command should return  the next pattern. Please pay attention to "Index Only Scan" scanning!
+The `EXPLAIN ANALYZE` command should return the next pattern. Please pay attention to "Index Only Scan" scanning!
 
     Index Only Scan using idx_person_order_multi on person_order ...
 
-Please provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_person_order_multi` is working. 
+Provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_person_order_multi` works. 
 
 ## Chapter VIII
 ## Exercise 04 - Uniqueness for data
@@ -189,8 +189,7 @@ Please provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_person_ord
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please create a unique BTree index with the name `idx_menu_unique` on the `menu` table for  `pizzeria_id` and `pizza_name` columns. 
-Please write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_menu_unique` is working. 
+Please create a unique BTree index named `idx_menu_unique` on the `menu` table for  `pizzeria_id` and `pizza_name` columns. Write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_menu_unique` works. 
 
 
 ## Chapter IX
@@ -204,9 +203,9 @@ Please write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please create a partial unique BTree index with the name `idx_person_order_order_date` on the `person_order` table for `person_id` and `menu_id` attributes with partial uniqueness for `order_date` column for date ‘2022-01-01’.
+Please create a partially unique BTree index named `idx_person_order_order_date` on the `person_order` table for the `person_id` and `menu_id` attributes with partial uniqueness for the `order_date` column for the date '2022-01-01'.
 
-The `EXPLAIN ANALYZE` command should return  the next pattern
+The `EXPLAIN ANALYZE` command should return the next pattern.
 
     Index Only Scan using idx_person_order_order_date on person_order …
 
@@ -221,7 +220,7 @@ The `EXPLAIN ANALYZE` command should return  the next pattern
 | **Allowed**                               |                                                                                                                          |
 | Language                        | ANSI SQL                                                                                              |
 
-Please take a look at SQL below from a technical perspective (ignore a logical case of that SQL statement) .
+Take a look at the SQL below from a technical perspective (ignore a logical case of this SQL statement).
 
     SELECT
         m.pizza_name AS pizza_name,
@@ -230,9 +229,9 @@ Please take a look at SQL below from a technical perspective (ignore a logical c
     INNER JOIN pizzeria pz ON m.pizzeria_id = pz.id
     ORDER BY 1,2;
 
-Create a new BTree index with name `idx_1` which should improve the “Execution Time” metric of this SQL. Please provide proof (`EXPLAIN ANALYZE`) that SQL was improved.
+Create a new BTree index named `idx_1` that should improve the "Execution Time" metric of this SQL. Provide evidence (`EXPLAIN ANALYZE`) that the SQL has been improved.
 
-**Hint**: this exercise looks like a “brute force” task to find a good covering index therefore before your new test remove `idx_1` index.
+**Hint**: This exercise looks like a "brute force" task to find a good cover index, so before your new test, remove the `idx_1` index.
 
 Sample of my improvement:
 
