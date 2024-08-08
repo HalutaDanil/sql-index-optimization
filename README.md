@@ -1,4 +1,4 @@
-# Day 05 - Piscine SQL
+# Day 05 — SQL Bootcamp
 
 ## _I improved my SQL Query! Please, provide proof!_
 
@@ -15,19 +15,19 @@ Resume: Today you will see how and when to create database indexes
 3. [Chapter III](#chapter-iii) \
     3.1. [Rules of the day](#rules-of-the-day)  
 4. [Chapter IV](#chapter-iv) \
-    4.1. [Exercise 00 - Let’s create indexes for every foreign key](#exercise-00-lets-create-indexes-for-every-foreign-key)  
+    4.1. [Exercise 00 — Let’s create indexes for every foreign key](#exercise-00-lets-create-indexes-for-every-foreign-key)  
 5. [Chapter V](#chapter-v) \
-    5.1. [Exercise 01 - How to see that index works?](#exercise-01-how-to-see-that-index-works)  
+    5.1. [Exercise 01 — How to see that index works?](#exercise-01-how-to-see-that-index-works)  
 6. [Chapter VI](#chapter-vi) \
-    6.1. [Exercise 02 - Formula is in the index. Is it Ok?](#exercise-02-formula-is-in-the-index-is-it-ok)  
+    6.1. [Exercise 02 — Formula is in the index. Is it Ok?](#exercise-02-formula-is-in-the-index-is-it-ok)  
 7. [Chapter VII](#chapter-vii) \
-    7.1. [Exercise 03 - Multicolumn index for our goals](#exercise-03-multicolumn-index-for-our-goals)  
+    7.1. [Exercise 03 — Multicolumn index for our goals](#exercise-03-multicolumn-index-for-our-goals)  
 8. [Chapter VIII](#chapter-viii) \
-    8.1. [Exercise 04 - Uniqueness for data](#exercise-04-uniqueness-for-data)
+    8.1. [Exercise 04 — Uniqueness for data](#exercise-04-uniqueness-for-data)
 9. [Chapter IX](#chapter-ix) \
-    9.1. [Exercise 05 - Partial uniqueness for data](#exercise-05-partial-uniqueness-for-data)
+    9.1. [Exercise 05 — Partial uniqueness for data](#exercise-05-partial-uniqueness-for-data)
 10. [Chapter X](#chapter-x) \
-    10.1. [Exercise 06 - Let’s make performance improvement](#exercise-06-lets-make-performance-improvement)
+    10.1. [Exercise 06 — Let’s make performance improvement](#exercise-06-lets-make-performance-improvement)
 
 ## Chapter I
 ## Preamble
@@ -73,35 +73,35 @@ Absolutely anything can be represented in SQL! Let's get started and have fun!
 
 
 1. **pizzeria** table (Dictionary Table with available pizzerias)
-- field id - primary key
-- field name - name of pizzeria
-- field rating - average rating of pizzeria (from 0 to 5 points)
+- field id — primary key
+- field name — name of pizzeria
+- field rating — average rating of pizzeria (from 0 to 5 points)
 2. **person** table (Dictionary Table with persons who loves pizza)
-- field id - primary key
-- field name - name of person
-- field age - age of person
-- field gender - gender of person
-- field address - address of person
+- field id — primary key
+- field name — name of person
+- field age — age of person
+- field gender — gender of person
+- field address — address of person
 3. **menu** table (Dictionary Table with available menu and price for concrete pizza)
-- field id - primary key
-- field pizzeria_id - foreign key to pizzeria
-- field pizza_name - name of pizza in pizzeria
-- field price - price of concrete pizza
+- field id — primary key
+- field pizzeria_id — foreign key to pizzeria
+- field pizza_name — name of pizza in pizzeria
+- field price — price of concrete pizza
 4. **person_visits** table (Operational Table with information about visits of pizzeria)
-- field id - primary key
-- field person_id - foreign key to person
-- field pizzeria_id - foreign key to pizzeria
-- field visit_date - date (for example 2022-01-01) of person visit 
+- field id — primary key
+- field person_id — foreign key to person
+- field pizzeria_id — foreign key to pizzeria
+- field visit_date — date (for example 2022-01-01) of person visit 
 5. **person_order** table (Operational Table with information about persons orders)
-- field id - primary key
-- field person_id - foreign key to person
-- field menu_id - foreign key to menu
-- field order_date - date (for example 2022-01-01) of person order 
+- field id — primary key
+- field person_id — foreign key to person
+- field menu_id — foreign key to menu
+- field order_date — date (for example 2022-01-01) of person order 
 
 People's visit and people's order are different entities and don't contain any correlation between data. For example, a customer can be in a restaurant (just looking at the menu) and in that time place an order in another restaurant by phone or mobile application. Or another case, just be at home and again make a call with order without any visits.
 
 ## Chapter IV
-## Exercise 00 - Let’s create indexes for every foreign key
+## Exercise 00 — Let’s create indexes for every foreign key
 
 | Exercise 00: Let’s create indexes for every foreign key |                                                                                                                          |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -114,7 +114,7 @@ Please create a simple BTree index for each foreign key in our database. The nam
 
 
 ## Chapter V
-## Exercise 01 - How to see that index works?
+## Exercise 01 — How to see that index works?
 
 | Exercise 01: How to see that index works?|                                                                                                                          |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -143,7 +143,7 @@ Please take a look at the sample output of the command.
 
 
 ## Chapter VI
-## Exercise 02 - Formula is in the index. Is it Ok?
+## Exercise 02 — Formula is in the index. Is it Ok?
 
 | Exercise 02: Formula is in the index. Is it Ok?|                                                                                                                          |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -157,7 +157,7 @@ Please create a functional B-Tree index  named `idx_person_name` on the column n
 Write and provide any SQL with proof (`EXPLAIN ANALYZE`) that index idx_person_name works.
 
 ## Chapter VII
-## Exercise 03 - Multicolumn index for our goals
+## Exercise 03 — Multicolumn index for our goals
 
 | Exercise 03: Multicolumn index for our goals |                                                                                                                          |
 |---------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
@@ -181,7 +181,7 @@ The `EXPLAIN ANALYZE` command should return the next pattern. Please pay attenti
 Provide any SQL with proof (`EXPLAIN ANALYZE`) that index `idx_person_order_multi` works. 
 
 ## Chapter VIII
-## Exercise 04 - Uniqueness for data
+## Exercise 04 — Uniqueness for data
 
 
 | Exercise 04: Uniqueness for data |                                                                                                                          |
@@ -195,7 +195,7 @@ Please create a unique BTree index named `idx_menu_unique` on the `menu` table f
 
 
 ## Chapter IX
-## Exercise 05 - Partial uniqueness for data
+## Exercise 05 — Partial uniqueness for data
 
 
 | Exercise 05: Partial uniqueness for data |                                                                                                                          |
@@ -212,7 +212,7 @@ The `EXPLAIN ANALYZE` command should return the next pattern.
     Index Only Scan using idx_person_order_order_date on person_order …
 
 ## Chapter X
-## Exercise 06 - Let’s make performance improvement
+## Exercise 06 — Let’s make performance improvement
 
 
 | Exercise 06: Let’s make performance improvement|                                                                                                                          |
