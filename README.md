@@ -29,22 +29,6 @@ Practical study of indexes in PostgreSQL: creation, execution plan analysis (EXP
 | ex05 | Partial indexes |
 | ex06 | Multicolumn indexes |
 
-### 🚀 Quick Start
-
-```sql
--- Before index
-EXPLAIN ANALYZE
-SELECT * FROM person WHERE name = 'Anna';
--- Seq Scan (cost=0.00..25.88)
-
--- Create index
-CREATE INDEX idx_person_name ON person(name);
-
--- After index
-EXPLAIN ANALYZE
-SELECT * FROM person WHERE name = 'Anna';
--- Index Scan (cost=0.29..8.30)
-```
 
 ---
 
@@ -73,22 +57,6 @@ SELECT * FROM person WHERE name = 'Anna';
 | ex05 | Частичные индексы |
 | ex06 | Мультиколоночные индексы |
 
-### 🚀 Быстрый старт
-
-```sql
--- До создания индекса
-EXPLAIN ANALYZE
-SELECT * FROM person WHERE name = 'Anna';
--- Seq Scan (cost=0.00..25.88)
-
--- Создаём индекс
-CREATE INDEX idx_person_name ON person(name);
-
--- После создания индекса
-EXPLAIN ANALYZE
-SELECT * FROM person WHERE name = 'Anna';
--- Index Scan (cost=0.29..8.30)
-```
 
 ---
 
