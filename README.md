@@ -19,11 +19,32 @@ Practical study of indexes in PostgreSQL: creation, execution plan analysis (EXP
 
 ### ✨ Features
 
-| Exercise | Topic |\n|----------|-------|\n| ex00 | B-tree indexes |\n| ex01 | Hash indexes |\n| ex02 | GiST indexes |\n| ex03 | GIN indexes |\n| ex04 | BRIN indexes |\n| ex05 | Partial indexes |\n| ex06 | Multicolumn indexes |
+| Exercise | Topic |
+|----------|-------|
+| ex00 | B-tree indexes |
+| ex01 | Hash indexes |
+| ex02 | GiST indexes |
+| ex03 | GIN indexes |
+| ex04 | BRIN indexes |
+| ex05 | Partial indexes |
+| ex06 | Multicolumn indexes |
 
 ### 🚀 Quick Start
 
-```sql\n-- Before index\nEXPLAIN ANALYZE\nSELECT * FROM person WHERE name = 'Anna';\n-- Seq Scan (cost=0.00..25.88)\n\n-- Create index\nCREATE INDEX idx_person_name ON person(name);\n\n-- After index\nEXPLAIN ANALYZE\nSELECT * FROM person WHERE name = 'Anna';\n-- Index Scan (cost=0.29..8.30)\n```
+```sql
+-- Before index
+EXPLAIN ANALYZE
+SELECT * FROM person WHERE name = 'Anna';
+-- Seq Scan (cost=0.00..25.88)
+
+-- Create index
+CREATE INDEX idx_person_name ON person(name);
+
+-- After index
+EXPLAIN ANALYZE
+SELECT * FROM person WHERE name = 'Anna';
+-- Index Scan (cost=0.29..8.30)
+```
 
 ---
 
@@ -42,11 +63,32 @@ Practical study of indexes in PostgreSQL: creation, execution plan analysis (EXP
 
 ### ✨ Возможности
 
-| Задача | Тема |\n|--------|------|\n| ex00 | B-tree индексы |\n| ex01 | Hash индексы |\n| ex02 | GiST индексы |\n| ex03 | GIN индексы |\n| ex04 | BRIN индексы |\n| ex05 | Частичные индексы |\n| ex06 | Мультиколоночные индексы |
+| Задача | Тема |
+|--------|------|
+| ex00 | B-tree индексы |
+| ex01 | Hash индексы |
+| ex02 | GiST индексы |
+| ex03 | GIN индексы |
+| ex04 | BRIN индексы |
+| ex05 | Частичные индексы |
+| ex06 | Мультиколоночные индексы |
 
 ### 🚀 Быстрый старт
 
-```sql\n-- До создания индекса\nEXPLAIN ANALYZE\nSELECT * FROM person WHERE name = 'Anna';\n-- Seq Scan (cost=0.00..25.88)\n\n-- Создаём индекс\nCREATE INDEX idx_person_name ON person(name);\n\n-- После создания индекса\nEXPLAIN ANALYZE\nSELECT * FROM person WHERE name = 'Anna';\n-- Index Scan (cost=0.29..8.30)\n```
+```sql
+-- До создания индекса
+EXPLAIN ANALYZE
+SELECT * FROM person WHERE name = 'Anna';
+-- Seq Scan (cost=0.00..25.88)
+
+-- Создаём индекс
+CREATE INDEX idx_person_name ON person(name);
+
+-- После создания индекса
+EXPLAIN ANALYZE
+SELECT * FROM person WHERE name = 'Anna';
+-- Index Scan (cost=0.29..8.30)
+```
 
 ---
 
